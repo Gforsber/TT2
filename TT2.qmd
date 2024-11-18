@@ -1,0 +1,22 @@
+---
+title: "TidyTuesday"
+format: html
+editor: visual
+---
+
+```{r, warning=FALSE}
+romeo_juliet <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-09-17/romeo_juliet.csv')
+
+library(dplyr)
+library(treemap)
+
+lineamount <- romeo_juliet %>% 
+  group_by(character) %>% 
+  summarize(line_count = n()) %>% 
+  filter(character != "[stage direction]")
+
+print(lineamount)
+
+treemap(lineamount, index = c("character"), vSize = "line_count", vColor = "line_count", title = "Treemap of Line Count Amount by Character in Romeo and Juliet",fontsize.labels = 10)
+```
+
